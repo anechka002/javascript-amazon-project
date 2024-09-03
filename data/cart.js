@@ -41,15 +41,7 @@ export function addToCart (productId) {
 }
 
 export function removeFromCart (productId) {
-  const newCart = [];
-
-  cart.forEach((cartItem) => {
-    if(cartItem.productId !== productId) {
-      newCart.push(cartItem)
-    }
-  })
-  cart = newCart;
-
+  cart = cart.filter(cartItem => cartItem.productId !== productId);
   saveToStorage();
 }
 
@@ -60,4 +52,13 @@ export function calculateCartQuantity () {
     cartQuantity += cartItem.quantity;
   })
   return cartQuantity;
+}
+
+// функция которая находит соответствующий товар в корзине и обновляет его кол-во до нового
+export function updateQuantity (productId, newQuantity) {
+  const matchingItem = cart.find(cartItem => cartItem.productId === productId);
+  if (matchingItem) {
+    matchingItem.quantity = newQuantity;
+    saveToStorage();
+  }
 }

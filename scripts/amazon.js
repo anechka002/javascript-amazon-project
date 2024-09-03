@@ -60,7 +60,7 @@ products.forEach((product) => {
 document.querySelector('.js-products-grid').innerHTML = productsHTML;
 
 // функция использует другую функцию для расчета кол-ва в корзине и добавляет в HTML
-function updateCartQuantity () {
+export function updateCartQuantity () {
   const cartQuantity = calculateCartQuantity();
   document.querySelector('.js-cart-quantity')
     .innerHTML = cartQuantity || '';
