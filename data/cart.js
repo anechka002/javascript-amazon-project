@@ -52,3 +52,12 @@ export function removeFromCart (productId) {
 
   saveToStorage();
 }
+
+// функция для расчета и обновлению кол-ва товара в корзине
+export function calculateCartQuantity () {
+  let cartQuantity = 0;
+  cart.forEach((cartItem) => {
+    cartQuantity += cartItem.quantity;
+  })
+  return cartQuantity;
+}

@@ -1,4 +1,4 @@
-import {cart, removeFromCart} from '../data/cart.js';
+import {cart, removeFromCart, calculateCartQuantity} from '../data/cart.js';
 import {products} from '../data/products.js';
 import {formatCurrency} from './utils/money.js';
 
@@ -112,12 +112,11 @@ deleteLink.forEach((link) => {
   })
 });
 
-// функция для расчета кол-ва в корзине
+// функция использует другую функцию для расчета кол-ва в корзине и добавляет в HTML
 export function updateCartQuantity () {
-  let cartQuantity = 0;
-  cart.forEach((cartItem) => {
-    cartQuantity += cartItem.quantity;
-  })
-  document.querySelector('.js-return-to-home-link').innerHTML = `${cartQuantity} items`
+  const cartQuantity = calculateCartQuantity();
+  document.querySelector('.js-return-to-home-link')
+    .innerHTML = `${cartQuantity} items`
 }
+
 updateCartQuantity()
