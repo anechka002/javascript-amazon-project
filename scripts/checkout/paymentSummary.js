@@ -3,6 +3,7 @@ import { getProduct } from '../../data/products.js';
 import { getDeliveryOption } from '../../data/deliveryOptions.js';
 import { formatCurrency } from '../utils/money.js';
 
+// функция для отрисовки сводки по оплате
 export function renderPaymentSummary () {
   let productPriceCents = 0;
   let shippingPriceCents = 0;
@@ -18,11 +19,6 @@ export function renderPaymentSummary () {
   const totalBeforeTaxCents = productPriceCents + shippingPriceCents;
   const taxCent = totalBeforeTaxCents * 0.1;
   const totalCents = totalBeforeTaxCents + taxCent;
-
-  console.log(productPriceCents)
-  console.log(shippingPriceCents)
-  console.log(totalBeforeTaxCents)
-  console.log(totalCents)
 
   const paymentSummaryHTML = `
     <div class="payment-summary-title">
