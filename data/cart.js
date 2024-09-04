@@ -64,3 +64,18 @@ export function updateQuantity (productId, newQuantity) {
     saveToStorage();
   }
 }
+
+// функция для обновления опций доставки в корзине
+export function updateDeliveryOptions (productId, deliveryOptionId) {
+  let matchingItem;
+
+  cart.forEach((cartItem) => {
+    if(productId === cartItem.productId) {
+      matchingItem = cartItem
+    }
+  })
+
+  matchingItem.deliveryOptionId = deliveryOptionId;
+
+  saveToStorage();
+}
