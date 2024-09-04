@@ -1,3 +1,18 @@
+
+// функция ищет и возвращает продукт по заданному идентификатору (productId).
+export function getProduct (productId) {
+  // совпадающий продукт
+  let matchingProduct;
+
+  products.forEach((product) => {
+    // проверяем совпадает ли id с нашим productId
+    if(product.id === productId) {
+      matchingProduct = product;
+    }
+  });
+  return matchingProduct;
+}
+
 export const products = [
   {
     id: "e43638ce-6aa0-4b85-b27f-e1d07eb678c6",
