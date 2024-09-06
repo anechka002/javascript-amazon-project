@@ -5,7 +5,7 @@ import { formatCurrency } from '../utils/money.js';
 
 // функция для отрисовки сводки по оплате
 export function renderPaymentSummary () {
-  console.log('he')
+
   let productPriceCents = 0;
   let shippingPriceCents = 0;
   let cartQuantity = 0;

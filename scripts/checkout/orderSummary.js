@@ -4,6 +4,7 @@ import {formatCurrency} from '../utils/money.js';
 import dayjs from 'https://unpkg.com/dayjs@1.11.10/esm/index.js';
 import {deliveryOptions, getDeliveryOption} from '../../data/deliveryOptions.js'
 import { renderPaymentSummary } from './paymentSummary.js';
+import { renderCheckoutHeader } from './checkoutHeader.js';
 
 // библиотека dayjs
 const today = dayjs();
@@ -19,11 +20,8 @@ export function renderOrderSummary () {
 
   cart.forEach((cartItem) => {
     const productId = cartItem.productId;
-
     const matchingProduct = getProduct(productId);
-
     const deliveryOptionId = cartItem.deliveryOptionId;
-
     const deliveryOption = getDeliveryOption(deliveryOptionId);
 
     const today = dayjs();
@@ -117,15 +115,17 @@ export function renderOrderSummary () {
       const productId = link.dataset.productId;
       removeFromCart(productId)
       
-      const container = document.querySelector(`.js-cart-item-container-${productId}`);
-      container.remove()
+      // const container = document.querySelector(`.js-cart-item-container-${productId}`);
+      // container.remove()
 
+      renderOrderSummary()
       renderPaymentSummary()
-      updateCartQuantity()
+      renderCheckoutHeader()
+      // updateCartQuantity()
     })
   });
 
-  updateCartQuantity();
+  // updateCartQuantity();
 
   document.querySelectorAll('.js-update-link')
     .forEach((link) => {
@@ -157,7 +157,7 @@ export function renderOrderSummary () {
         const quantityLabel = document.querySelector(`.js-quantity-label-${productId}`);
         quantityLabel.innerHTML = newQuantity; // Обновляем количество на странице
 
-        updateCartQuantity();
+        // updateCartQuantity();
       });
     });
 
@@ -174,9 +174,9 @@ export function renderOrderSummary () {
 
 
 // функция использует другую функцию для расчета кол-ва в корзине и добавляет в HTML
-export function updateCartQuantity () {
-  const cartQuantity = calculateCartQuantity();
+// export function updateCartQuantity () {
+//   const cartQuantity = calculateCartQuantity();
 
-  document.querySelector('.js-return-to-home-link')
-    .innerHTML = `${cartQuantity} items`
-}
+//   document.querySelector('.js-return-to-home-link')
+//     .innerHTML = `${cartQuantity} items`
+// }
