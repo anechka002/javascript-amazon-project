@@ -1,5 +1,5 @@
-import {cart, removeFromCart, calculateCartQuantity, updateQuantity, updateDeliveryOptions} from '../../data/cart.js';
-import {products, getProduct} from '../../data/products.js';
+import {cart, removeFromCart, updateQuantity, updateDeliveryOptions} from '../../data/cart.js';
+import {getProduct} from '../../data/products.js';
 import {formatCurrency} from '../utils/money.js';
 import dayjs from 'https://unpkg.com/dayjs@1.11.10/esm/index.js';
 import {deliveryOptions, getDeliveryOption, calculateDeliveryDate} from '../../data/deliveryOptions.js'
@@ -15,7 +15,7 @@ const deliveryDate = today.add(7, 'days');
 // функция отображения сводки заказов на странице
 export function renderOrderSummary () {
 
-  // обьединение html кода и размещение на странице
+// обьединение html кода и размещение на странице
   let cartSummaryHTML = '';
 
   cart.forEach((cartItem) => {
@@ -110,24 +110,17 @@ export function renderOrderSummary () {
     link.addEventListener('click', () => {
       const productId = link.dataset.productId;
       removeFromCart(productId)
-      
-      // const container = document.querySelector(`.js-cart-item-container-${productId}`);
-      // container.remove()
 
       renderOrderSummary()
       renderPaymentSummary()
       renderCheckoutHeader()
-      // updateCartQuantity()
     })
   });
-
-  // updateCartQuantity();
 
   document.querySelectorAll('.js-update-link')
     .forEach((link) => {
       link.addEventListener('click', () => {
         const productId = link.dataset.productId;
-        // console.log(productId)
         const container = document.querySelector(`.js-cart-item-container-${productId}`)
         container.classList.add('is-editing-quantity')
       })
@@ -137,7 +130,6 @@ export function renderOrderSummary () {
     .forEach((link) => {
       link.addEventListener('click', () => {
         const productId = link.dataset.productId;
-        // console.log(productId)
 
         const quantityInput = document.querySelector(`.js-quantity-input-${productId}`);
         const newQuantity = Number(quantityInput.value);
@@ -147,13 +139,10 @@ export function renderOrderSummary () {
         }      
         updateQuantity(productId, newQuantity);
 
-        const container = document.querySelector(`.js-cart-item-container-${productId}`)
-        container.classList.remove('is-editing-quantity');
-        
-        const quantityLabel = document.querySelector(`.js-quantity-label-${productId}`);
-        quantityLabel.innerHTML = newQuantity; // Обновляем количество на странице
+        renderCheckoutHeader();
+        renderOrderSummary();
+        renderPaymentSummary();
 
-        // updateCartQuantity();
       });
     });
 
@@ -167,12 +156,3 @@ export function renderOrderSummary () {
       })
     })
 }
-
-
-// функция использует другую функцию для расчета кол-ва в корзине и добавляет в HTML
-// export function updateCartQuantity () {
-//   const cartQuantity = calculateCartQuantity();
-
-//   document.querySelector('.js-return-to-home-link')
-//     .innerHTML = `${cartQuantity} items`
-// }
