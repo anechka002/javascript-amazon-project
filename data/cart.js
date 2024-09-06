@@ -42,6 +42,7 @@ export function addToCart (productId) {
   saveToStorage();
 }
 
+// функция по удалению из корзины
 export function removeFromCart (productId) {
   cart = cart.filter(cartItem => cartItem.productId !== productId);
   saveToStorage();
@@ -54,16 +55,7 @@ export function calculateCartQuantity () {
     cartQuantity += cartItem.quantity;
   })
   return cartQuantity;
-}
-
-// функция которая находит соответствующий товар в корзине и обновляет его кол-во до нового
-export function updateQuantity (productId, newQuantity) {
-  const matchingItem = cart.find(cartItem => cartItem.productId === productId);
-  if (matchingItem) {
-    matchingItem.quantity = newQuantity;
-    saveToStorage();
-  }
-}
+};
 
 // функция для обновления опций доставки в корзине
 export function updateDeliveryOptions (productId, deliveryOptionId) {
@@ -78,4 +70,13 @@ export function updateDeliveryOptions (productId, deliveryOptionId) {
   matchingItem.deliveryOptionId = deliveryOptionId;
 
   saveToStorage();
+}
+
+// функция которая находит соответствующий товар в корзине и обновляет его кол-во до нового
+export function updateQuantity (productId, newQuantity) {
+  const matchingItem = cart.find(cartItem => cartItem.productId === productId);
+  if (matchingItem) {
+    matchingItem.quantity = newQuantity;
+    saveToStorage();
+  }
 }
