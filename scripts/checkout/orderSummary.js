@@ -1,4 +1,4 @@
-import {cart, removeFromCart, updateQuantity, updateDeliveryOptions} from '../../data/cart.js';
+import {cart} from '../../data/cart-class.js';
 import {getProduct} from '../../data/products.js';
 import {formatCurrency} from '../utils/money.js';
 import dayjs from 'https://unpkg.com/dayjs@1.11.10/esm/index.js';
@@ -18,7 +18,7 @@ export function renderOrderSummary () {
 // обьединение html кода и размещение на странице
   let cartSummaryHTML = '';
 
-  cart.forEach((cartItem) => {
+  cart.cartItems.forEach((cartItem) => {
     const productId = cartItem.productId;
     const matchingProduct = getProduct(productId);
     const deliveryOptionId = cartItem.deliveryOptionId;
@@ -109,7 +109,7 @@ export function renderOrderSummary () {
   deleteLink.forEach((link) => {
     link.addEventListener('click', () => {
       const productId = link.dataset.productId;
-      removeFromCart(productId)
+      cart.removeFromCart(productId)
 
       renderOrderSummary()
       renderPaymentSummary()
@@ -137,7 +137,7 @@ export function renderOrderSummary () {
           alert('Quantity must be at least 0 and less than 100');
           return
         }      
-        updateQuantity(productId, newQuantity);
+        cart.updateQuantity(productId, newQuantity);
 
         renderCheckoutHeader();
         renderOrderSummary();
@@ -150,7 +150,7 @@ export function renderOrderSummary () {
     .forEach((element) => {
       element.addEventListener('click', () => {
         const {productId, deliveryOptionId} = element.dataset;
-        updateDeliveryOptions(productId, deliveryOptionId);
+        cart.updateDeliveryOptions(productId, deliveryOptionId);
         renderOrderSummary();
         renderPaymentSummary();
       })
