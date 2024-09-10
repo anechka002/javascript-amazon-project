@@ -99,7 +99,7 @@ const businessCart = new Cart('cart-business');
 
 // cart.#localStorageKey = 'aaa'
 
-console.log(cart)
-console.log(businessCart)
+// console.log(cart)
+// console.log(businessCart)
 
-console.log(businessCart instanceof Cart)
+// console.log(businessCart instanceof Cart)
