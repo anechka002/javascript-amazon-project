@@ -98,6 +98,7 @@ export class Appliance extends Product {
 // obj3.method()
 
 export let products = [];
+
 export function loadProducts (fun) {
   const xhr = new XMLHttpRequest();
 
